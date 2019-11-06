@@ -14,7 +14,7 @@ import java.util.List;
 public class Building extends Localization {
 
     @OneToMany()
-    @JoinColumn(name = "floor_id")
+    @JoinColumn(name = "building_id")
     private List<Floor> floors;
 
     public Building(String name, List<Floor> floors) {

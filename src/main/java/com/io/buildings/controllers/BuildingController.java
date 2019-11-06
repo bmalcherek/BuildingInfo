@@ -50,7 +50,8 @@ public class BuildingController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Building createBuilding(@RequestBody @Valid BuildingRequest buildingRequest) {
-        List<Floor> floors = floorRepository.findAllById(buildingRequest.getFloorIds());
+
+        List<Floor> floors = floorRepository.findAllNotUsed(buildingRequest.getFloorIds());
         if (floors.size() != buildingRequest.getFloorIds().size()) {
             throw new ResourceNotFoundException("There are floors that are not found");
         }
@@ -63,7 +64,7 @@ public class BuildingController {
         Building building = buildingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
 
-        List<Floor> floors = floorRepository.findAllById(floorIds);
+        List<Floor> floors = floorRepository.findAllNotUsed(floorIds);
         if (floors.size() != floorIds.size()) {
             throw new ResourceNotFoundException("There are floors that are not found");
         }

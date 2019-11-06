@@ -51,7 +51,7 @@ public class FloorController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Floor createFloor(@RequestBody @Valid FloorRequest floorRequest) {
-        List<Room> rooms = roomRepository.findAllById(floorRequest.getRoomIds());
+        List<Room> rooms = roomRepository.findAllNotUsed(floorRequest.getRoomIds());
         if (rooms.size() != floorRequest.getRoomIds().size()) {
             throw new ResourceNotFoundException("There are rooms that are not found");
         }
@@ -62,7 +62,7 @@ public class FloorController {
     @PatchMapping("/{id}/addRooms")
     public Floor addRooms(@RequestBody List<Integer> roomIds, @PathVariable Integer id) {
         Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(FLOOR_NOT_FOUND));
-        List<Room> rooms = roomRepository.findAllById(roomIds);
+        List<Room> rooms = roomRepository.findAllNotUsed(roomIds);
         if (rooms.size() != roomIds.size()) {
             throw new ResourceNotFoundException("There are rooms that are not found");
         }
