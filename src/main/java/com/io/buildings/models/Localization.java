@@ -1,14 +1,16 @@
 package com.io.buildings.models;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-@Data
+@Getter
+@Setter
 @MappedSuperclass
+@NoArgsConstructor
 public abstract class Localization {
 
     @Id
@@ -17,4 +19,8 @@ public abstract class Localization {
 
     @Column
     private String name;
+
+    public Localization(String name) {
+        this.name = name;
+    }
 }

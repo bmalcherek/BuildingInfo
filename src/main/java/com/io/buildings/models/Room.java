@@ -1,14 +1,14 @@
 package com.io.buildings.models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class Room extends Localization {
 
     @Column(nullable = false)
@@ -22,4 +22,12 @@ public class Room extends Localization {
 
     @Column(nullable = false)
     private Float light;
+
+    public Room(String name, Float area, Float cube, Float heating, Float light) {
+        super(name);
+        this.area = area;
+        this.cube = cube;
+        this.heating = heating;
+        this.light = light;
+    }
 }

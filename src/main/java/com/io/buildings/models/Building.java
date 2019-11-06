@@ -1,20 +1,24 @@
 package com.io.buildings.models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class Building extends Localization {
 
-    @OneToMany
-    @Column
+    @OneToMany()
+    @JoinColumn(name = "floor_id")
     private List<Floor> floors;
 
+    public Building(String name, List<Floor> floors) {
+        super(name);
+        this.floors = floors;
+    }
 }
