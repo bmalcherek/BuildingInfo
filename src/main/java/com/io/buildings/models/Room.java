@@ -30,4 +30,9 @@ public class Room extends Localization {
         this.heating = heating;
         this.light = light;
     }
+
+    @Override
+    public Float countSurface() {
+        return area;
+    }
 }

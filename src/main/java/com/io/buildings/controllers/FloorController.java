@@ -1,6 +1,8 @@
 package com.io.buildings.controllers;
 
+import com.io.buildings.models.Building;
 import com.io.buildings.models.Floor;
+import com.io.buildings.models.Localization;
 import com.io.buildings.models.Room;
 import com.io.buildings.repositories.FloorRepository;
 import com.io.buildings.repositories.RoomRepository;
@@ -37,6 +39,13 @@ public class FloorController {
     @GetMapping("/{id}")
     public Floor getInfo(@PathVariable Integer id) {
         return floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(FLOOR_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/surface")
+    public Float getSurface(@PathVariable Integer id) {
+        return floorRepository.findById(id).map(Localization::countSurface
+        ).orElseThrow(() -> new ResourceNotFoundException(FLOOR_NOT_FOUND));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

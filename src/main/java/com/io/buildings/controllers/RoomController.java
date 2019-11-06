@@ -1,5 +1,6 @@
 package com.io.buildings.controllers;
 
+import com.io.buildings.models.Localization;
 import com.io.buildings.models.Room;
 import com.io.buildings.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,13 @@ public class RoomController {
     @GetMapping("/{id}")
     public Room getInfo(@PathVariable Integer id) {
         return roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ROOM_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/surface")
+    public Float getSurface(@PathVariable Integer id) {
+        return roomRepository.findById(id).map(Localization::countSurface
+        ).orElseThrow(() -> new ResourceNotFoundException(ROOM_NOT_FOUND));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

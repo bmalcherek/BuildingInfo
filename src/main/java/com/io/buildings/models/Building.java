@@ -21,4 +21,9 @@ public class Building extends Localization {
         super(name);
         this.floors = floors;
     }
+
+    @Override
+    public Float countSurface(){
+        return floors.stream().map(Localization::countSurface).reduce(0f,Float::sum);
+    }
 }

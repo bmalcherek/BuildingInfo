@@ -20,7 +20,9 @@ public abstract class Localization {
     @Column
     private String name;
 
-    public Localization(String name) {
+    Localization(String name) {
         this.name = name;
     }
+
+    public abstract Float countSurface();
 }

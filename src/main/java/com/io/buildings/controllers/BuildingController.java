@@ -2,6 +2,7 @@ package com.io.buildings.controllers;
 
 import com.io.buildings.models.Building;
 import com.io.buildings.models.Floor;
+import com.io.buildings.models.Localization;
 import com.io.buildings.repositories.BuildingRepository;
 import com.io.buildings.repositories.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class BuildingController {
     @GetMapping("/{id}")
     public Building getInfo(@PathVariable Integer id) {
         return buildingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/surface")
+    public Float getSurface(@PathVariable Integer id) {
+        return buildingRepository.findById(id).map(Localization::countSurface
+        ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
