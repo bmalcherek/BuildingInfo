@@ -48,6 +48,13 @@ public class BuildingController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/cube")
+    public Float getCube(@PathVariable Integer id) {
+        return buildingRepository.findById(id).map(Localization::countCube
+        ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Building createBuilding(@RequestBody @Valid BuildingRequest buildingRequest) {
 

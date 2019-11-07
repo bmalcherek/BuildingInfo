@@ -35,4 +35,9 @@ public class Room extends Localization {
     public Float countSurface() {
         return area;
     }
+
+    @Override
+    public Float countCube() {
+        return cube;
+    }
 }

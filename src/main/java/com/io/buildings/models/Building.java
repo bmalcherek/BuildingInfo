@@ -1,6 +1,8 @@
 package com.io.buildings.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,7 +25,13 @@ public class Building extends Localization {
     }
 
     @Override
-    public Float countSurface(){
-        return floors.stream().map(Localization::countSurface).reduce(0f,Float::sum);
+    public Float countSurface() {
+        return floors.stream().map(Localization::countSurface).reduce(0f, Float::sum);
     }
+
+    @Override
+    public Float countCube() {
+        return floors.stream().map(Localization::countCube).reduce(0f, Float::sum);
+    }
+
 }

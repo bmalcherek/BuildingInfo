@@ -44,6 +44,13 @@ public class RoomController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/cube")
+    public Float getCube(@PathVariable Integer id) {
+        return roomRepository.findById(id).map(Localization::countCube
+        ).orElseThrow(() -> new ResourceNotFoundException(ROOM_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Room createRoom(@RequestBody @Valid RoomRequest roomRequest) {
         return roomRepository.save(new Room(roomRequest.getName(), roomRequest.getArea(), roomRequest.getCube(),
