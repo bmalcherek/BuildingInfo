@@ -6,9 +6,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository for table Building
+ */
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
+    /**
+     * Select method that returns all Buildings
+     * @return List of Buildings
+     */
     @Override
     List<Building> findAll();
 }
