@@ -55,6 +55,13 @@ public class BuildingController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/light")
+    public Float getAverageLight(@PathVariable Integer id) {
+        return buildingRepository.findById(id).map(Localization::countAverageLight
+        ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Building createBuilding(@RequestBody @Valid BuildingRequest buildingRequest) {
 

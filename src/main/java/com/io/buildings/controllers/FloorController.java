@@ -56,6 +56,13 @@ public class FloorController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/light")
+    public Float getAverageLight(@PathVariable Integer id) {
+        return floorRepository.findById(id).map(Localization::countAverageLight
+        ).orElseThrow(() -> new ResourceNotFoundException(FLOOR_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Floor createFloor(@RequestBody @Valid FloorRequest floorRequest) {
         List<Room> rooms = roomRepository.findAllNotUsed(floorRequest.getRoomIds());
