@@ -40,4 +40,9 @@ public class Room extends Localization {
     public Float countCube() {
         return cube;
     }
+
+    @Override
+    public Float countAverageLight() {
+        return light/area;
+    }
 }

@@ -33,4 +33,9 @@ public class Floor extends Localization {
     public Float countCube() {
         return rooms.stream().map(Localization::countCube).reduce(0f, Float::sum);
     }
+
+    @Override
+    public Float countAverageLight() {
+        return (float) rooms.stream().map(Localization::countAverageLight).mapToDouble(Double::valueOf).average().orElse(0);
+    }
 }

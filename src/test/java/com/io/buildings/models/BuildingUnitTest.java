@@ -20,7 +20,7 @@ class BuildingUnitTest {
     @BeforeEach
     void setUp() {
         for (int i = 0; i < 4; i++) {
-            rooms.add(new Room("Room" + String.valueOf(i),100f, 100f, 100f, 100f));
+            rooms.add(new Room("Room" + String.valueOf(i),100f, 100f, 100f, 200f));
         }
         for (int i = 0; i < 2; i++) {
             floors.add(new Floor("Floor" + String.valueOf(i), asList(rooms.get(2*i), rooms.get(2*i+1))));
@@ -34,8 +34,13 @@ class BuildingUnitTest {
     }
 
     @Test
-    void countCube() {
+    void shouldCorrectlyCountCube() {
         assertEquals(400f, sut.countCube());
+    }
+
+    @Test
+    void shouldCorrectlyCountLight() {
+        assertEquals(2f, sut.countAverageLight());
     }
 
 }
