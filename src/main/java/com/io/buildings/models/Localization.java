@@ -27,4 +27,6 @@ public abstract class Localization {
     public abstract Float countSurface();
 
     public abstract Float countCube();
+
+    public abstract Float countAverageLight();
 }
