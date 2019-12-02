@@ -48,7 +48,10 @@ public class Building extends Localization {
     public Float countCube() {
         return floors.stream().map(Localization::countCube).reduce(0f, Float::sum);
     }
-
+    /**
+     * counts average light on building: summary of floors average light
+     * @return average light
+     */
     @Override
     public Float countAverageLight() {
         return (float) floors.stream().map(Localization::countAverageLight).mapToDouble(Double::valueOf).average().orElse(0);
