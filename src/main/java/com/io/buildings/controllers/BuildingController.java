@@ -3,15 +3,18 @@ package com.io.buildings.controllers;
 import com.io.buildings.models.Building;
 import com.io.buildings.models.Floor;
 import com.io.buildings.models.Localization;
+import com.io.buildings.models.Room;
 import com.io.buildings.repositories.BuildingRepository;
 import com.io.buildings.repositories.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.io.buildings.controllers.requests.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -59,6 +62,49 @@ public class BuildingController {
     public Float getAverageLight(@PathVariable Integer id) {
         return buildingRepository.findById(id).map(Localization::countAverageLight
         ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/heating")
+    public Float getAverageHeating(@PathVariable Integer id) {
+        return buildingRepository.findById(id).map(Localization::countAverageHeating
+        ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/aboveHeating")
+    public List<Room> getLocalizationAboveHeating(@RequestParam Float value) {
+        List<Room> list = new ArrayList<>();
+        List<Building> listBuilding = new ArrayList<>();
+        listBuilding = buildingRepository.findAll();
+        for(Building b: listBuilding) {
+            for (Floor f : b.getFloors()) {
+                for (Room r : f.getRooms()) {
+                    if (r.getHeating() > value) {
+                        list.add(r);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/bySurface")
+    public List<Room> getLocalizationBySurface(@RequestParam Float leftValue,Float rightValue) {
+        List<Room> list = new ArrayList<>();
+        List<Building> listBuilding = new ArrayList<>();
+        listBuilding = buildingRepository.findAll();
+        for(Building b: listBuilding){
+            for(Floor f: b.getFloors()) {
+                for (Room r : f.getRooms()) {
+                    if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
+                        list.add(r);
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

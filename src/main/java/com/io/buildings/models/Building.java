@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,5 +57,47 @@ public class Building extends Localization {
     public Float countAverageLight() {
         return (float) floors.stream().map(Localization::countAverageLight).mapToDouble(Double::valueOf).average().orElse(0);
     }
-
+    /**
+     * counts average heating on building: summary of floors average heating
+     * @return average heating
+     */
+    @Override
+    public Float countAverageHeating(){
+        return (float) floors.stream().map(Localization::countAverageHeating).mapToDouble(Double::valueOf).average().orElse(0);
+    }
+    /**
+     * select rooms which heating is higher than given value
+     * @param value float: limit of heating
+     * @return list of rooms
+     */
+    @Override
+    public List<Room> getLocalizationAboveHeating(float value){
+        List<Room> list = new ArrayList<Room>();
+        for(Floor tempFloor: this.floors) {
+            for (Room loc : tempFloor.getRooms()) {
+                if (loc.getHeating() > value) {
+                    list.add(loc);
+                }
+            }
+        }
+        return list;
+    }
+    /**
+     * select rooms which surface is in the range of given values
+     * @param leftValue float: left bound
+     * @param rightValue float: right bound
+     * @return list of rooms
+     */
+    @Override
+    public List<Room> getLocalizationBySurface(float leftValue,float rightValue){
+        List<Room> list = new ArrayList<>();
+        for(Floor f: this.floors){
+            for(Room r: f.getRooms()) {
+                if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
+                    list.add(r);
+                }
+            }
+        }
+        return list;
+    }
 }
