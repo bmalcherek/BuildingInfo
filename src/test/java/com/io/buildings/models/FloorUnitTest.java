@@ -40,14 +40,6 @@ class FloorUnitTest {
     void testCountEmptyFloorAverageHeating() {assertEquals(0,emptyFloor.countAverageHeating());}
 
     @Test
-    void testGetEmptyFloorLocalizationAboveHeating() {
-        List<Room> list = emptyFloor.getLocalizationAboveHeating(100);
-        for( Room r: list){
-            assertTrue(r.getHeating() > 100);
-        }
-    }
-
-    @Test
     void shouldCorrectlyCountFloorSurface() {
         assertEquals(800f, floor.countSurface());
     }
@@ -64,13 +56,4 @@ class FloorUnitTest {
 
     @Test
     void shouldCorrectlyCountFloorHeating(){assertEquals(1.25f,floor.countAverageHeating());}
-
-    @Test
-    void shouldCorrectlyGetLocalizationAboveHeating(){
-        List<Room> list = floor.getLocalizationAboveHeating(250);
-        for( Room r: list){
-            assertTrue(r.getHeating() > 100);
-            System.out.println(r.getHeating()+" ");
-        }
-    }
 }

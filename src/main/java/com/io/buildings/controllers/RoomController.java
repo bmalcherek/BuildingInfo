@@ -1,5 +1,6 @@
 package com.io.buildings.controllers;
 
+import com.io.buildings.controllers.requests.RoomRequest;
 import com.io.buildings.models.Localization;
 import com.io.buildings.models.Room;
 import com.io.buildings.repositories.RoomRepository;
@@ -7,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.io.buildings.controllers.requests.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -67,30 +66,14 @@ public class RoomController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/aboveHeating")
-    public List<Room> getLocalizationAboveHeating(@RequestParam Float value) {
-        List<Room> list = new ArrayList<>();
-        List<Room> response = new ArrayList<>();
-        list = roomRepository.findAll();
-        for (Room r: list){
-            if(r.getHeating() >= value){
-                response.add(r);
-            }
-        }
-        return response;
+    public List<Room> getRoomsAboveHeating(@RequestParam Float value) {
+       return roomRepository.findAllAboveHeating(value);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/bySurface")
-    public List<Room> getLocalizationBySurface(@RequestParam Float leftValue,Float rightValue) {
-        List<Room> list = new ArrayList<>();
-        List<Room> response = new ArrayList<>();
-        list = roomRepository.findAll();
-        for (Room r: list){
-            if(r.getArea() >= leftValue && r.getArea() <= rightValue){
-                response.add(r);
-            }
-        }
-        return response;
+    public List<Room> getRoomsBySurface(@RequestParam Float leftValue,Float rightValue) {
+     return roomRepository.findAllBySurface(leftValue,rightValue);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

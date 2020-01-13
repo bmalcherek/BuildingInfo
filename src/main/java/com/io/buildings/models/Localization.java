@@ -1,12 +1,13 @@
 package com.io.buildings.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.util.List;
 
 @Getter
 @Setter
@@ -32,8 +33,4 @@ public abstract class Localization {
     public abstract Float countAverageLight();
 
     public abstract Float countAverageHeating();
-
-    public abstract List<Room> getLocalizationAboveHeating(float value);
-
-    public abstract List<Room> getLocalizationBySurface(float leftValue,float rightValue);
 }

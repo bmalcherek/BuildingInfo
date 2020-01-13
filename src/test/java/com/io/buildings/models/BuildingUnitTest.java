@@ -48,13 +48,11 @@ class BuildingUnitTest {
 
     @Test
     void testGetLocalizationAboveHeating(){
-        List<Room> list = emptySut.getLocalizationAboveHeating(100);
+        List<Room> list = emptySut.getBuildingsAboveHeating(100);
         for( Room r: list){
             assertTrue(r.getHeating() > 100);
         }
     }
-
-
 
     @Test
     void shouldCorrectlyCountSurface() {
@@ -76,7 +74,7 @@ class BuildingUnitTest {
 
     @Test
     void shouldCorrectlyGetLocalizationAboveHeating(){
-        List<Room> list = sut.getLocalizationAboveHeating(250);
+        List<Room> list = sut.getBuildingsAboveHeating(250);
         for( Room r: list){
             assertTrue(r.getHeating() > 100);
             System.out.println(r.getHeating()+" ");

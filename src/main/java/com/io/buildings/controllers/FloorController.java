@@ -1,6 +1,6 @@
 package com.io.buildings.controllers;
 
-import com.io.buildings.models.Building;
+import com.io.buildings.controllers.requests.FloorRequest;
 import com.io.buildings.models.Floor;
 import com.io.buildings.models.Localization;
 import com.io.buildings.models.Room;
@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.io.buildings.controllers.requests.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -72,35 +70,15 @@ public class FloorController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/aboveHeating")
-    public List<Room> getLocalizationAboveHeating(@RequestParam Float value) {
-        List<Room> list = new ArrayList<>();
-        List<Floor> listFloor = new ArrayList<>();
-        listFloor = floorRepository.findAll();
-        for(Floor f: listFloor){
-            for (Room r: f.getRooms()){
-                if(r.getHeating() > value){
-                    list.add(r);
-                }
-            }
-        }
-        return list;
+    public List<Floor> getFloorsAboveHeating(@RequestParam Float value) {
+        return floorRepository.findAllAboveHeating(value);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/bySurface")
-    public List<Room> getLocalizationBySurface(@RequestParam Float leftValue,Float rightValue) {
-        List<Room> list = new ArrayList<>();
-        List<Floor> listFloor = new ArrayList<>();
-        listFloor = floorRepository.findAll();
-        for(Floor f: listFloor) {
-            for (Room r : f.getRooms()) {
-                if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
-                    list.add(r);
-                }
-            }
-        }
-        return list;
-    }
+   @CrossOrigin(origins = "http://localhost:4200")
+   @GetMapping("/bySurface")
+   public List<Floor> getFloorsBySurface(@RequestParam Float leftValue,Float rightValue) {
+        return floorRepository.findAllBySurface(leftValue,rightValue);
+   }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping

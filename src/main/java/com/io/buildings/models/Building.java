@@ -70,8 +70,7 @@ public class Building extends Localization {
      * @param value float: limit of heating
      * @return list of rooms
      */
-    @Override
-    public List<Room> getLocalizationAboveHeating(float value){
+    public List<Room> getBuildingsAboveHeating(float value){
         List<Room> list = new ArrayList<Room>();
         for(Floor tempFloor: this.floors) {
             for (Room loc : tempFloor.getRooms()) {
@@ -88,8 +87,7 @@ public class Building extends Localization {
      * @param rightValue float: right bound
      * @return list of rooms
      */
-    @Override
-    public List<Room> getLocalizationBySurface(float leftValue,float rightValue){
+    public List<Room> getBuildingsBySurface(float leftValue,float rightValue){
         List<Room> list = new ArrayList<>();
         for(Floor f: this.floors){
             for(Room r: f.getRooms()) {

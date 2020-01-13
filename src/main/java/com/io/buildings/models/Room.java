@@ -36,19 +36,17 @@ public class Room extends Localization {
         this.light = light;
     }
     /**
-     * Overrided method for printing objects of this class
+     * Method for printing objects of this class
      * @return String
      */
-    @Override
     public String toString(){
         return "name:"+super.getName()+" area:"+area+" cube:"+cube+" heating:"+heating+" light:"+light+" ";
     }
     /**
-     * Overrided method for comparison objects of this class
+     * Method for comparison objects of this class
      * @param obj Object: object for comparison
      * @return boolean
      */
-    @Override
     public boolean equals(Object obj) {
         return super.getName() == ((Room)obj).getName() && this.area == ((Room)obj).getArea() && this.cube == ((Room)obj).getCube() &&
                 this.heating == ((Room)obj).getHeating() && this.light == ((Room)obj).getLight();
@@ -83,31 +81,4 @@ public class Room extends Localization {
      */
     @Override
     public Float countAverageHeating(){return heating/area;}
-    /**
-     * select rooms which heating is higher than given value
-     * @param value float: limit of heating
-     * @return list of rooms
-     */
-    @Override
-    public List<Room> getLocalizationAboveHeating(float value){
-        List<Room> list = new ArrayList<Room>();
-        if (heating > value) {
-            list.add(this);
-        }
-        return list;
-    }
-    /**
-     * select rooms which surface is in the range of given values
-     * @param leftValue float: left bound
-     * @param rightValue float: right bound
-     * @return list of rooms
-     */
-    @Override
-    public List<Room> getLocalizationBySurface(float leftValue,float rightValue){
-        List<Room> list = new ArrayList<>();
-        if( area >= leftValue && area <= rightValue){
-            list.add(this);
-        }
-        return list;
-    }
 }

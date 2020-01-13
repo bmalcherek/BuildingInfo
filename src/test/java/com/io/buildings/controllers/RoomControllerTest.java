@@ -42,6 +42,9 @@ class RoomControllerTest {
         when(roomRepo.findAll()).thenReturn(rooms);
         List<Room> list = controller.getAllRooms();
         verify(roomRepo).findAll();
+        for(int i = 0;i<list.size();i++){
+            assertEquals(rooms.get(i),list.get(i));
+        }
         assertEquals(4,list.size());
         System.out.println("getAllRooms");
         System.out.println(list);
@@ -49,19 +52,19 @@ class RoomControllerTest {
 
     @Test
     void testGetInfo() {
-        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 100f, 100f, 200f)));
+        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 200f, 300f, 400f)));
         Room room = controller.getInfo(1);
         verify(roomRepo).findById(1);
         assertEquals("Room",room.getName());
         assertEquals(100,room.getArea());
-        assertEquals(100,room.getCube());
-        assertEquals(100,room.getHeating());
-        assertEquals(200,room.getLight());
+        assertEquals(200,room.getCube());
+        assertEquals(300,room.getHeating());
+        assertEquals(400,room.getLight());
     }
 
     @Test
     void testGetSurface() {
-        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 100f, 100f, 200f)));
+        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 200f, 300f, 400f)));
         Float surf = controller.getSurface(1);
         verify(roomRepo).findById(1);
         assertEquals(100,surf);
@@ -69,49 +72,49 @@ class RoomControllerTest {
 
     @Test
     void testGetCube() {
-        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 100f, 100f, 200f)));
+        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 200f, 300f, 400f)));
         Float cube = controller.getCube(1);
         verify(roomRepo).findById(1);
-        assertEquals(100,cube);
+        assertEquals(200,cube);
     }
 
     @Test
     void testGetAverageLight() {
-        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 100f, 100f, 200f)));
+        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 200f, 300f, 400f)));
         Float light = controller.getAverageLight(1);
         verify(roomRepo).findById(1);
-        assertEquals(2,light);
+        assertEquals(4,light);
     }
 
     @Test
     void testGetAverageHeating() {
-        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 100f, 100f, 200f)));
+        when(roomRepo.findById(1)).thenReturn(java.util.Optional.of(new Room("Room", 100f, 200f, 300f, 400f)));
         Float heating = controller.getAverageHeating(1);
         verify(roomRepo).findById(1);
-        assertEquals(1,heating);
+        assertEquals(3,heating);
     }
 
     @Test
-    void testGetLocalizationAboveHeating() {
-        when(roomRepo.findAll()).thenReturn(rooms);
-        List<Room> list = controller.getLocalizationAboveHeating(250f);
-        verify(roomRepo).findAll();
+    void testGetRoomsAboveHeating() {
+        when(roomRepo.findAllAboveHeating(250f)).thenReturn(rooms.subList(2,4));
+        List<Room> list = controller.getRoomsAboveHeating(250f);
+        verify(roomRepo).findAllAboveHeating(250f);
         assertEquals(2,list.size());
-        assertEquals(300,list.get(0).getHeating());
-        assertEquals(400,list.get(1).getHeating());
-        System.out.println("getLocalizationAboveHeating");
+        assertTrue(list.get(0).getHeating() > 250);
+        assertTrue(list.get(1).getHeating() > 250);
+        System.out.println("getRoomsAboveHeating");
         System.out.println(list);
     }
 
     @Test
-    void testGetLocalizationBySurface() {
-        when(roomRepo.findAll()).thenReturn(rooms);
-        List<Room> list = controller.getLocalizationBySurface(150f,350f);
-        verify(roomRepo).findAll();
+    void testGetRoomsBySurface() {
+        when(roomRepo.findAllBySurface(150f,350f)).thenReturn(rooms.subList(1,3));
+        List<Room> list = controller.getRoomsBySurface(150f,350f);
+        verify(roomRepo).findAllBySurface(150f,350f);
         assertEquals(2,list.size());
-        assertEquals(200,list.get(0).getArea());
-        assertEquals(300,list.get(1).getArea());
-        System.out.println("getLocalizationBySurface");
+        assertTrue(list.get(0).getArea() >= 150 && list.get(0).getArea() <=350);
+        assertTrue(list.get(1).getArea() >= 150 && list.get(1).getArea() <=350);
+        System.out.println("getRoomsBySurface");
         System.out.println(list);
     }
 

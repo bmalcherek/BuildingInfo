@@ -64,13 +64,12 @@ public class Floor extends Localization {
     public Float countAverageHeating(){
         return (float) rooms.stream().map(Localization::countAverageHeating).mapToDouble(Double::valueOf).average().orElse(0);
     }
-    /**
+   /**
      * select rooms which heating is higher than given value
      * @param value float: limit of heating
      * @return list of rooms
      */
-    @Override
-    public List<Room> getLocalizationAboveHeating(float value){
+  /*  public List<Room> getFloorsAboveHeating(float value){
         List<Room> list = new ArrayList<Room>();
         for(Room loc: this.rooms){
             if (loc.getHeating() > value) {
@@ -78,15 +77,14 @@ public class Floor extends Localization {
             }
         }
         return list;
-    }
+    }*/
     /**
      * select rooms which surface is in the range of given values
      * @param leftValue float: left bound
      * @param rightValue float: right bound
      * @return list of rooms
      */
-    @Override
-    public List<Room> getLocalizationBySurface(float leftValue,float rightValue){
+   /* public List<Room> getFloorsBySurface(float leftValue,float rightValue){
         List<Room> list = new ArrayList<>();
         for(Room r: this.rooms) {
             if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
@@ -94,5 +92,5 @@ public class Floor extends Localization {
             }
         }
         return list;
-    }
+    }*/
 }

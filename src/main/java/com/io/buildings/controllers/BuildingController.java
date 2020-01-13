@@ -1,5 +1,6 @@
 package com.io.buildings.controllers;
 
+import com.io.buildings.controllers.requests.BuildingRequest;
 import com.io.buildings.models.Building;
 import com.io.buildings.models.Floor;
 import com.io.buildings.models.Localization;
@@ -7,11 +8,9 @@ import com.io.buildings.models.Room;
 import com.io.buildings.repositories.BuildingRepository;
 import com.io.buildings.repositories.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.io.buildings.controllers.requests.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -71,9 +70,9 @@ public class BuildingController {
         ).orElseThrow(() -> new ResourceNotFoundException(BUILDING_NOT_FOUND));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+   @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/aboveHeating")
-    public List<Room> getLocalizationAboveHeating(@RequestParam Float value) {
+    public List<Room> getBuildingsAboveHeating(@RequestParam Float value) {
         List<Room> list = new ArrayList<>();
         List<Building> listBuilding = new ArrayList<>();
         listBuilding = buildingRepository.findAll();
@@ -91,7 +90,7 @@ public class BuildingController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/bySurface")
-    public List<Room> getLocalizationBySurface(@RequestParam Float leftValue,Float rightValue) {
+    public List<Room> getBuildingsBySurface(@RequestParam Float leftValue,Float rightValue) {
         List<Room> list = new ArrayList<>();
         List<Building> listBuilding = new ArrayList<>();
         listBuilding = buildingRepository.findAll();
