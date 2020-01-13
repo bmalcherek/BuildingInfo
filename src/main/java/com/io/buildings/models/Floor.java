@@ -7,8 +7,6 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.websocket.OnError;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,33 +62,4 @@ public class Floor extends Localization {
     public Float countAverageHeating(){
         return (float) rooms.stream().map(Localization::countAverageHeating).mapToDouble(Double::valueOf).average().orElse(0);
     }
-   /**
-     * select rooms which heating is higher than given value
-     * @param value float: limit of heating
-     * @return list of rooms
-     */
-  /*  public List<Room> getFloorsAboveHeating(float value){
-        List<Room> list = new ArrayList<Room>();
-        for(Room loc: this.rooms){
-            if (loc.getHeating() > value) {
-                list.add(loc);
-            }
-        }
-        return list;
-    }*/
-    /**
-     * select rooms which surface is in the range of given values
-     * @param leftValue float: left bound
-     * @param rightValue float: right bound
-     * @return list of rooms
-     */
-   /* public List<Room> getFloorsBySurface(float leftValue,float rightValue){
-        List<Room> list = new ArrayList<>();
-        for(Room r: this.rooms) {
-            if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
-                list.add(r);
-            }
-        }
-        return list;
-    }*/
 }

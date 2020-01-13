@@ -1,6 +1,5 @@
 package com.io.buildings.models;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BuildingUnitTest {
 
@@ -47,14 +46,6 @@ class BuildingUnitTest {
     void testCountHeating(){assertEquals(0,emptySut.countAverageHeating());}
 
     @Test
-    void testGetLocalizationAboveHeating(){
-        List<Room> list = emptySut.getBuildingsAboveHeating(100);
-        for( Room r: list){
-            assertTrue(r.getHeating() > 100);
-        }
-    }
-
-    @Test
     void shouldCorrectlyCountSurface() {
         assertEquals(400f, sut.countSurface());
     }
@@ -71,14 +62,5 @@ class BuildingUnitTest {
 
     @Test
     void shouldCorrectlyCountHeating(){assertEquals(2.5f,sut.countAverageHeating());}
-
-    @Test
-    void shouldCorrectlyGetLocalizationAboveHeating(){
-        List<Room> list = sut.getBuildingsAboveHeating(250);
-        for( Room r: list){
-            assertTrue(r.getHeating() > 100);
-            System.out.println(r.getHeating()+" ");
-        }
-    }
 
 }

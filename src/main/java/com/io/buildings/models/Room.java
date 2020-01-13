@@ -1,11 +1,11 @@
 package com.io.buildings.models;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * model on which based is database table. Extends Localization

@@ -72,36 +72,46 @@ public class BuildingController {
 
    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/aboveHeating")
-    public List<Room> getBuildingsAboveHeating(@RequestParam Float value) {
-        List<Room> list = new ArrayList<>();
+    public List<Building> getBuildingsAboveHeating(@RequestParam Float value) {
+        float heating = 0;
+        float area = 0;
+        float average;
+        List<Building> list = new ArrayList<>();
         List<Building> listBuilding = new ArrayList<>();
         listBuilding = buildingRepository.findAll();
         for(Building b: listBuilding) {
             for (Floor f : b.getFloors()) {
                 for (Room r : f.getRooms()) {
-                    if (r.getHeating() > value) {
-                        list.add(r);
+                        heating += r.getHeating();
+                        area += r.getArea();
                     }
                 }
+            average = heating/area;
+            if(average > value){
+                list.add(b);
             }
+            heating = area = 0;
         }
         return list;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/bySurface")
-    public List<Room> getBuildingsBySurface(@RequestParam Float leftValue,Float rightValue) {
-        List<Room> list = new ArrayList<>();
+    public List<Building> getBuildingsBySurface(@RequestParam Float leftValue,Float rightValue) {
+        float area = 0;
+        List<Building> list = new ArrayList<>();
         List<Building> listBuilding = new ArrayList<>();
         listBuilding = buildingRepository.findAll();
-        for(Building b: listBuilding){
-            for(Floor f: b.getFloors()) {
+        for(Building b: listBuilding) {
+            for (Floor f : b.getFloors()) {
                 for (Room r : f.getRooms()) {
-                    if (r.getArea() >= leftValue && r.getArea() <= rightValue) {
-                        list.add(r);
-                    }
+                    area += r.getArea();
                 }
             }
+            if(area >=leftValue && area <=rightValue){
+                list.add(b);
+            }
+            area = 0;
         }
         return list;
     }
